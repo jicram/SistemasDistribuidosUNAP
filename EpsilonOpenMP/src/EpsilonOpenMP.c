@@ -42,9 +42,7 @@ int main (int argc, char *argv[]) {
    for (int i=id; i<k; i+=nt){
 	   double m = factorial(i);
 	   e+=1.0/m;  //e=e+1.0/fact
-	   et+=e;
-	   }
-   //printf("El valor de épsilon es: %.10f",et);
+	   } et+=e;
 }
 printf("El valor de épsilon es: %.10f",et);
 
