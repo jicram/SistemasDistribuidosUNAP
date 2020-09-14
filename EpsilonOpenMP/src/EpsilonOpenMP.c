@@ -23,7 +23,6 @@ int factorial(int f){
 
 int main (int argc, char *argv[]) {
   int k;
-  double mye;
 
   printf("\n ***************************************************");
   printf("\n Fuera de la región paralela, se utilizan 4 threads");
@@ -32,24 +31,24 @@ int main (int argc, char *argv[]) {
   scanf("%d",&k);
 
   omp_set_num_threads(4);
-#pragma omp parallel
- {
+
+   double et = 0.0;
+
+#pragma omp parallel reduction(+:et)
+{
    int id = omp_get_thread_num();
    int nt = omp_get_num_threads();
    double e=0;
    for (int i=id; i<k; i+=nt){
-	   double m=factorial(i);
+	   double m = factorial(i);
 	   e+=1.0/m;  //e=e+1.0/fact
-     }
-   printf("El valor de épsilon es : %f \n",e);
- }
- /*if (tid==3){
- for (int tid=0; tid<ntt; tid++){
-	 mye+=mye;
- }
- }*/
- //printf("El valor de épsilon es: ,%10f",mye);
- return 0;
+	   et+=e;
+	   }
+   //printf("El valor de épsilon es: %.10f",et);
+}
+printf("El valor de épsilon es: %.10f",et);
+
+return 0;
 }
 
 
